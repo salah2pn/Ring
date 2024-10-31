@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق الجرس</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Ubuntu:wght@500&family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        
+        body, html {
+            height: 100%;
+            width: 100%;
+
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-family: Rubik;
+            background-color: #f0f8ff; /* اللون الافتراضي */
+            transition: background-color 0.5s ease;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .side {
+            flex: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #333;
+            position: relative;
+            transition: background-color 0.5s ease;
+        }
+        .left {
+            background-color: #add8e6; /* لون أزرق مريح */
+
+
+        }
+        .right {
+            background-color: #ffcccb; /* لون وردي مريح */
+        }
+        .circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            font-size: 24px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="side left" onclick="selectSide('left')">الجانب الأيسر</div>
+        <div class="circle">اضغط للرد</div>
+        <div class="side right" onclick="selectSide('right')">الجانب الأيمن</div>
+
+        <audio id="leftSound" src="left-sound.mp3"></audio>
+        <audio id="rightSound" src="right-sound.mp3"></audio>
+    </div>
+
+    <script>
+        function selectSide(side) {
+
+            const sound = side === 'left' ? document.getElementById('leftSound') : document.getElementById('rightSound');
+            sound.play();
+
+            // تغيير لون خلفية الصفحة بناءً على الجانب المحدد
+            if (side === 'left') {
+                document.body.style.backgroundColor = '#add8e6'; // لون أزرق مريح
+            } else {
+                document.body.style.backgroundColor = '#ffcccb'; // لون وردي مريح
+            }
+
+            // تغيير لون الجانبين لجعل الشاشة ممتلئة
+            document.querySelector('.left').style.backgroundColor = document.body.style.backgroundColor;
+            document.querySelector('.right').style.backgroundColor = document.body.style.backgroundColor;
+
+            // إعادة اللون الافتراضي بعد 5 ثوانٍ
+            setTimeout(() => {
+                document.body.style.backgroundColor = '#f0f8ff'; // اللون الافتراضي
+                document.querySelector('.left').style.backgroundColor = '#add8e6'; // إعادة لون الجانب الأيسر
+                document.querySelector('.right').style.backgroundColor = '#ffcccb'; // إعادة لون الجانب الأيمن
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
