@@ -98,6 +98,8 @@
             </svg>
         </div>
 
+        <audio id="leftSound" src="left-sound.mp3"></audio>
+        <audio id="rightSound" src="right-sound.mp3"></audio>
         <audio id="tickSound" src="tick-sound.mp3"></audio> <!-- صوت الساعة -->
 
     </div>
@@ -105,12 +107,12 @@
     <script>
         let isTimerRunning = false;
         let interval;
+        let tickSound;
 
         function selectSide(side) {
             if (isTimerRunning) return;
 
             isTimerRunning = true;
-
 
             // تغيير لون خلفية الصفحة بناءً على الجانب المحدد
             if (side === 'left') {
@@ -132,17 +134,15 @@
             progressCircle.style.strokeDasharray = circumference;
             timerContainer.style.display = 'block';
 
-            let timeLeft = 10; // 10 ثواني
+            let timeLeft = 9; // 9 ثواني
 
-            // تشغيل صوت الساعة بعد ثانية واحدة
-            setTimeout(() => {
-                const tickSound = document.getElementById('tickSound');
-                tickSound.play(); 
-            }, 1300);
+            // تشغيل صوت الساعة مباشرة
+            tickSound = document.getElementById('tickSound');
+            tickSound.play(); 
 
             interval = setInterval(() => {
                 timeLeft--;
-                const offset = circumference * (1 - timeLeft / 10);
+                const offset = circumference * (1 - timeLeft / 9);
                 progressCircle.style.strokeDashoffset = offset;
 
                 if (timeLeft <= 0) {
@@ -157,6 +157,8 @@
             if (!isTimerRunning) return;
 
             clearInterval(interval);  // إيقاف المؤقت
+            tickSound.pause(); // إيقاف صوت الساعة
+            tickSound.currentTime = 0; // إعادة ضبط توقيت الصوت
             resetGame();
         }
 
