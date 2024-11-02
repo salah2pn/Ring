@@ -65,8 +65,8 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            width: 185px;
-            height: 185px;
+            width: 183px;
+            height: 183px;
             display: none;
         }
         .timer-svg circle {
@@ -100,13 +100,13 @@
 
         <audio id="leftSound" src="left-sound.mp3"></audio>
         <audio id="rightSound" src="right-sound.mp3"></audio>
-        <audio id="tickSound" src="tick-sound.mp3.wav"></audio> <!-- صوت الساعة الذي يحتوي على النهاية -->
+        <audio id="tickSound" src="tick-sound.mp3"></audio> <!-- صوت الساعة -->
 
     </div>
 
     <script>
         let isTimerRunning = false;
-        let interval;  // نحتاج لمتغير `interval` عالمي لإيقاف المؤقت عند الضغط على الدائرة
+        let interval;
 
         function selectSide(side) {
             if (isTimerRunning) return;
@@ -138,8 +138,11 @@
 
             let timeLeft = 10; // 10 ثواني
 
-            const tickSound = document.getElementById('tickSound');
-            tickSound.play();  // تشغيل صوت الساعة لمرة واحدة فقط
+            // تشغيل صوت الساعة بعد ثانية واحدة
+            setTimeout(() => {
+                const tickSound = document.getElementById('tickSound');
+                tickSound.play(); 
+            }, 1300);
 
             interval = setInterval(() => {
                 timeLeft--;
