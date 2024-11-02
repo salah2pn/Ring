@@ -100,7 +100,7 @@
 
         <audio id="leftSound" src="left-sound.mp3"></audio>
         <audio id="rightSound" src="right-sound.mp3"></audio>
-        <audio id="tickSound" src="tick-sound.mp3" loop></audio> <!-- إضافة خاصية loop -->
+        <audio id="tickSound" src="tick-sound.mp3"></audio>
 
     </div>
 
@@ -134,10 +134,10 @@
             progressCircle.style.strokeDasharray = circumference;
             timerContainer.style.display = 'block';
 
-            let timeLeft = 8; // 8 ثواني
+            let timeLeft = 8; // تقليل الوقت إلى 9 ثواني
 
-            // تشغيل صوت الساعة
             tickSound = document.getElementById('tickSound');
+            tickSound.loop = false; // عدم تكرار الصوت
             tickSound.currentTime = 0; // إعادة ضبط توقيت الصوت
             tickSound.play(); 
 
@@ -153,7 +153,6 @@
             }, 1000);
         }
 
-        // دالة إيقاف المؤقت عند الضغط على الدائرة
         function stopTimer() {
             if (!isTimerRunning) return;
 
