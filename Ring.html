@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تطبيق الجرس</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Ubuntu:wght@500&family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Ubuntu:wght@500&family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
     <style>
-        
         body, html {
             height: 100%;
             width: 100%;
-
             margin: 0;
             display: flex;
             align-items: center;
@@ -36,13 +34,10 @@
             justify-content: center;
             font-size: 24px;
             color: #333;
-            position: relative;
             transition: background-color 0.5s ease;
         }
         .left {
             background-color: #add8e6; /* لون أزرق مريح */
-
-
         }
         .right {
             background-color: #ffcccb; /* لون وردي مريح */
@@ -63,6 +58,9 @@
             font-size: 24px;
             color: #333;
         }
+        .disabled {
+            pointer-events: none; /* تعطيل التفاعل */
+        }
     </style>
 </head>
 <body>
@@ -71,32 +69,40 @@
         <div class="circle">اضغط للرد</div>
         <div class="side right" onclick="selectSide('right')">الجانب الأيمن</div>
 
+        <!-- الصوت -->
         <audio id="leftSound" src="left-sound.mp3"></audio>
         <audio id="rightSound" src="right-sound.mp3"></audio>
     </div>
 
     <script>
         function selectSide(side) {
+            // تعطيل التفاعل مع الأزرار
+            document.querySelectorAll('.side').forEach(button => {
+                button.classList.add('disabled');
+            });
 
+            // تشغيل الصوت بناءً على الجانب المحدد
             const sound = side === 'left' ? document.getElementById('leftSound') : document.getElementById('rightSound');
             sound.play();
 
             // تغيير لون خلفية الصفحة بناءً على الجانب المحدد
-            if (side === 'left') {
-                document.body.style.backgroundColor = '#add8e6'; // لون أزرق مريح
-            } else {
-                document.body.style.backgroundColor = '#ffcccb'; // لون وردي مريح
-            }
+            const selectedColor = side === 'left' ? '#add8e6' : '#ffcccb';
+            document.body.style.backgroundColor = selectedColor;
 
-            // تغيير لون الجانبين لجعل الشاشة ممتلئة
-            document.querySelector('.left').style.backgroundColor = document.body.style.backgroundColor;
-            document.querySelector('.right').style.backgroundColor = document.body.style.backgroundColor;
+            // ملء الشاشة بلون الجانب المحدد
+            document.querySelector('.left').style.backgroundColor = selectedColor;
+            document.querySelector('.right').style.backgroundColor = selectedColor;
 
-            // إعادة اللون الافتراضي بعد 5 ثوانٍ
+            // إعادة الألوان الأصلية وإعادة تمكين الأزرار بعد 5 ثوانٍ
             setTimeout(() => {
-                document.body.style.backgroundColor = '#f0f8ff'; // اللون الافتراضي
-                document.querySelector('.left').style.backgroundColor = '#add8e6'; // إعادة لون الجانب الأيسر
-                document.querySelector('.right').style.backgroundColor = '#ffcccb'; // إعادة لون الجانب الأيمن
+                document.body.style.backgroundColor = '#f0f8ff';
+                document.querySelector('.left').style.backgroundColor = '#add8e6';
+                document.querySelector('.right').style.backgroundColor = '#ffcccb';
+
+                // إعادة تمكين الأزرار
+                document.querySelectorAll('.side').forEach(button => {
+                    button.classList.remove('disabled');
+                });
             }, 5000);
         }
     </script>
