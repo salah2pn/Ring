@@ -100,7 +100,7 @@
 
         <audio id="leftSound" src="left-sound.mp3"></audio>
         <audio id="rightSound" src="right-sound.mp3"></audio>
-        <audio id="tickSound" src="tick-sound.mp3"></audio> <!-- صوت الساعة -->
+        <audio id="tickSound" src="tick-sound.mp3" loop></audio> <!-- إضافة خاصية loop -->
 
     </div>
 
@@ -136,8 +136,9 @@
 
             let timeLeft = 9; // 9 ثواني
 
-            // تشغيل صوت الساعة مباشرة
+            // تشغيل صوت الساعة
             tickSound = document.getElementById('tickSound');
+            tickSound.currentTime = 0; // إعادة ضبط توقيت الصوت
             tickSound.play(); 
 
             interval = setInterval(() => {
