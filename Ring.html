@@ -98,8 +98,6 @@
             </svg>
         </div>
 
-        <audio id="leftSound" src="left-sound.mp3"></audio>
-        <audio id="rightSound" src="right-sound.mp3"></audio>
         <audio id="tickSound" src="tick-sound.mp3"></audio> <!-- صوت الساعة -->
 
     </div>
@@ -113,8 +111,6 @@
 
             isTimerRunning = true;
 
-            const sound = side === 'left' ? document.getElementById('leftSound') : document.getElementById('rightSound');
-            sound.play();
 
             // تغيير لون خلفية الصفحة بناءً على الجانب المحدد
             if (side === 'left') {
